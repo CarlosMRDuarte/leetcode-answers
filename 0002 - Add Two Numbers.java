@@ -13,25 +13,27 @@ import java.math.BigDecimal;
 
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        BigDecimal n1 = new BigDecimal(fromNodeToString(l1));
-        BigDecimal n2 = new BigDecimal(fromNodeToString(l2));
-
+        BigDecimal n1 = toBigDecimal(l1);
+        BigDecimal n2 = toBigDecimal(l2);
         BigDecimal sum = n1.add(n2);
         
-        return fromStringToNode(sum.toPlainString());
+        return toListNode(sum);
     }
 
-    private String fromNodeToString(ListNode node) {
+    private BigDecimal toBigDecimal(ListNode node) {
         var builder = new StringBuilder();
 
         do {
             builder.append(node.val);
         } while ((node = node.next) != null);
 
-        return builder.reverse().toString();
+        String reversed = builder.reverse().toString();
+
+        return new BigDecimal(reversed);
     }
 
-    private ListNode fromStringToNode(String s) {
+    private ListNode toListNode(BigDecimal bd) {
+        String s = bd.toPlainString();
         ListNode currentNode = null;
 
         for (int i = 0; i < s.length(); i++) {
@@ -41,5 +43,5 @@ class Solution {
 
         return currentNode;
     }
-
+    
 }
